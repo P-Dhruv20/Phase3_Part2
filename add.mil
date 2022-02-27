@@ -1,0 +1,19 @@
+func main
+. a
+. b
+. c
+= a, 100
+= b, 50
+. temp_0
++ temp_0, a, b
+= c, temp_0
+.> c
+endfunc
+
+symbol table:
+--------------------
+function: main
+  locals: a
+  locals: b
+  locals: c
+--------------------
