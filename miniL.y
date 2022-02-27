@@ -70,7 +70,7 @@
 %left L_SQUARE_BRACKET
 %left R_SQUARE_BRACKET
 %token ASSIGN
-%expect 1
+
 
 %type <stval> Var
 %type <stval> Term
@@ -78,6 +78,8 @@
 %type <stval> Expression
 %type <stval> Array
 %type <stval> Var_arr
+%type <stval> Comp
+
 
 %start Program
 
@@ -178,9 +180,47 @@ Statement:  Var {operands.push_back($1); args.push_back($1); arr.push_back($1);
                         std::cout << "[]= " << $1 << ", "<< $3 << ", " << temp4;
                         }
                         SEMICOLON {std::cout << endl;} Statement1 
-            | IF Bool_Exp THEN Statement Else_statement ENDIF SEMICOLON Statement1
-            | WHILE Bool_Exp BEGINLOOP Statement ENDLOOP SEMICOLON Statement1
-            | DO BEGINLOOP Statement ENDLOOP WHILE Bool_Exp SEMICOLON Statement1
+
+                | IF Bool_Exp 
+                        {
+                    std::string if_label = "if_true" + to_string(x);
+                    k--;
+                    std::string temp = "temp_" + to_string(k);
+                    std::cout << "?:= " << if_label << ", " << temp << endl;
+                    std::string endif_label = "endif" + to_string(x);
+                    std::cout << ":= " << endif_label << endl; 
+                 } 
+            THEN {                  
+                    std::string if_label = "if_true" + to_string(x);
+                    std::cout << ": " << if_label << endl;
+                    } 
+        Statement ENDIF SEMICOLON {
+                                                        std::string endif_label = "endif" + to_string(x);
+                                                        x++;
+                                                        std::cout << ": " << endif_label;
+                                                        std::cout << endl;} Statement1 
+                | IF Bool_Exp 
+            {
+                    std::string if_label = "if_true" + to_string(x);
+                    k--;
+                    std::string temp = "temp_" + to_string(k);
+                    std::cout << "?:= " << if_label << ", " << temp << endl;
+                    std::string else_label = "else" + to_string(x);
+                    std::cout  << ":= " << else_label << endl; 
+            } 
+            THEN {                  
+                    std::string if_label = "if_true" + to_string(x);
+                    std::cout << ": " << if_label << endl;
+                    } 
+                Statement  {std::string endif_label = "endif" + to_string(x);
+                                                        std::cout << ":= " << endif_label << endl;}
+                        Else_statement ENDIF SEMICOLON {
+                                                        std::string endif_label = "endif" + to_string(x);
+                                                        x++;
+                                                        std::cout << ": " << endif_label;
+                                                        std::cout << endl;} Statement1 
+            | WHILE Bool_Exp BEGINLOOP Statement ENDLOOP SEMICOLON {std::cout << endl;} Statement1
+            | DO BEGINLOOP Statement ENDLOOP WHILE Bool_Exp SEMICOLON {std::cout << endl;} Statement1
             | READ Var {std::cout << ".< " << $2;} SEMICOLON {std::cout << endl;} Statement1
             | WRITE Var {std::cout << ".> " << $2;} SEMICOLON {std::cout << endl;} Statement1
             | READ IDENT L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET {
@@ -202,25 +242,84 @@ Statement:  Var {operands.push_back($1); args.push_back($1); arr.push_back($1);
             | CONTINUE SEMICOLON {std::cout << endl;} Statement1
             | BREAK SEMICOLON {std::cout << endl;} Statement1
             | RETURN Expression SEMICOLON {org_return_exp(); std::cout << endl;} Statement1
+            | RETURN IDENT L_PAREN Term_Exp R_PAREN {                
+                std::string val = $2;
+                if(!findFunction(val)) {
+                        std::string msg = "Unidentified function";
+	                char a[msg.size()];
+		        strcpy(a, msg.c_str());
+                        yyerror(a);
+                }
+                args.push_back($2); org_args();
+        } ADD IDENT L_PAREN Term_Exp R_PAREN {                
+                std::string val = $<stval>7;
+                if(!findFunction(val)) {
+                        std::string msg = "Unidentified function";
+	                char a[msg.size()];
+		        strcpy(a, msg.c_str());
+                        yyerror(a);
+                }
+                args.push_back($<stval>7); org_args();
+        } SEMICOLON Statement1
+        | RETURN NUMBER SEMICOLON {std::cout << "ret " << $2 << endl;} Statement1
 ;
 Statement1 : Statement
         |
 ;
-Else_statement: ELSE Statement
+Else_statement: ELSE {
+                        std::string else_label = "else" + to_string(x);
+                    std::cout  << ": " << else_label << endl;
+                        } Statement 
                 | 
 ;
-Bool_Exp:   Not Expression Comp Expression
+Bool_Exp: Not Var Comp Var {
+                        std::string temp = "temp_" + to_string(k);
+                        k++;
+                        std::cout << ". " << temp << endl;
+                        std::cout << $3 << " " << temp << ", " << $2 << ", " << $4 << endl;
+        }
+        | Not Var Comp NUMBER {
+                        std::string temp = "temp_" + to_string(k);
+                        k++;
+                        std::cout << ". " << temp << endl;
+                        std::cout << $3 << " " << temp << ", " << $2 << ", " << $4 << endl;
+        }
+        | Not NUMBER Comp Var 
+        {
+                        std::string temp = "temp_" + to_string(k);
+                        k++;
+                        std::cout << ". " << temp << endl;
+                        std::cout << $3 << " " << temp << ", " << $2 << ", " << $4 << endl;
+        }
+        | Not NUMBER Comp NUMBER
+        {
+                        std::string temp = "temp_" + to_string(k);
+                        k++;
+                        std::cout << ". " << temp << endl;
+                        std::cout << $3 << " " << temp << ", " << $2 << ", " << $4 << endl;
+        }
 ;
 Not: NOT
     | 
 ;
-Comp:   EQ
-        | NEQ
-        | LT
-        | GT
-        | LTE
-        | GTE
-        |
+Comp:   EQ {    char a[1];
+                strcpy(a, "=");
+                $$ = a;}
+        | NEQ  {  char a[2];
+                strcpy(a, "!=");
+                $$ = a;}
+        | LT  {    char a[1];
+                strcpy(a, "<");
+                $$ = a;}
+        | GT  {    char a[1];
+                strcpy(a, ">");
+                $$ = a;}
+        | LTE  {    char a[2];
+                strcpy(a, "<=");
+                $$ = a;}
+        | GTE  {    char a[2];
+                strcpy(a, ">=");
+                $$ = a;}
 ;
 Expression: Multi_Exp Add_Op 
 ;
@@ -297,7 +396,6 @@ Var_arr:    IDENT L_SQUARE_BRACKET Expression R_SQUARE_BRACKET {
                 if(find(val)) {
                         if (isArray(val)) { 
                                 $$ = $1; 
-                                org_array();
                         }
                         else {
                                 std::string msg = "Identifier is not an array type";
