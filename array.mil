@@ -32,10 +32,3 @@ func main
 .> temp_8
 endfunc
 
-symbol table:
---------------------
-function: main
-  locals: a[]
-  locals: b
-  locals: c
---------------------

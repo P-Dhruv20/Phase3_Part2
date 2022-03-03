@@ -41,6 +41,25 @@ std::vector <std::string> arr;
 
 int k = 0;
 int x = 0;
+int y = -1;
+int z = 0;
+int a = 0;
+int b = 0;
+std::vector<std::string> if_vec;
+
+void org_ifelse(){
+if(z==1){
+  for(int i = 0; i < if_vec.size();i++){
+    std::cout << if_vec[i] << endl;
+  }
+}
+else {
+  std::cout << if_vec[3] << endl;
+  std::cout << if_vec[1] << endl;
+  std::cout << if_vec[2] << endl;
+  std::cout << if_vec[4] << endl;
+}
+}
 
 int parenthesis() {
   for (int i = 1; i < operands.size(); i++) {
@@ -184,7 +203,6 @@ void organize_into_nodes() {
     std::cout << temp_1 << ", ";
     std::cout << node_paren->src[0] << ", ";
     std::cout << node_paren->src[1] << endl;
-
     std::string temp_2 = "temp_" + to_string(k);
     k++;
     std::cout << ". " << temp_2 << endl;
@@ -216,7 +234,12 @@ void organize_into_nodes() {
     }
     
     if (node->type == Normal) {
+      if(a == 0){
       std::cout << "= " << node->dst << ", " << node->src[0] << endl;
+      }
+      else {
+        if_vec.push_back( "= " + node->dst + ", " + node->src[0] );
+      }
     }
     else {
 

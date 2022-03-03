@@ -4,8 +4,3 @@ func main
 .> a
 endfunc
 
-symbol table:
---------------------
-function: main
-  locals: a
---------------------

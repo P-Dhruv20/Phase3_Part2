@@ -10,10 +10,3 @@ func main
 .> c
 endfunc
 
-symbol table:
---------------------
-function: main
-  locals: a
-  locals: b
-  locals: c
---------------------

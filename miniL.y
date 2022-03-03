@@ -79,7 +79,9 @@
 %type <stval> Array
 %type <stval> Var_arr
 %type <stval> Comp
-
+%expect 1
+%glr-parser
+%expect-rr 1
 
 %start Program
 
@@ -180,47 +182,64 @@ Statement:  Var {operands.push_back($1); args.push_back($1); arr.push_back($1);
                         std::cout << "[]= " << $1 << ", "<< $3 << ", " << temp4;
                         }
                         SEMICOLON {std::cout << endl;} Statement1 
+                | IF Bool_Exp 
+            {          k++;
+                    std::string if_label = "if_true" + to_string(x);
+                    k--;
+                    std::string temp = "temp_" + to_string(k-1);
+                    std::cout << "?:= " + if_label << ", " << temp << endl;
 
-                | IF Bool_Exp 
-                        {
-                    std::string if_label = "if_true" + to_string(x);
-                    k--;
-                    std::string temp = "temp_" + to_string(k);
-                    std::cout << "?:= " << if_label << ", " << temp << endl;
-                    std::string endif_label = "endif" + to_string(x);
-                    std::cout << ":= " << endif_label << endl; 
-                 } 
-            THEN {                  
-                    std::string if_label = "if_true" + to_string(x);
-                    std::cout << ": " << if_label << endl;
-                    } 
-        Statement ENDIF SEMICOLON {
-                                                        std::string endif_label = "endif" + to_string(x);
-                                                        x++;
-                                                        std::cout << ": " << endif_label;
-                                                        std::cout << endl;} Statement1 
-                | IF Bool_Exp 
-            {
-                    std::string if_label = "if_true" + to_string(x);
-                    k--;
-                    std::string temp = "temp_" + to_string(k);
-                    std::cout << "?:= " << if_label << ", " << temp << endl;
                     std::string else_label = "else" + to_string(x);
-                    std::cout  << ":= " << else_label << endl; 
+                   if_vec.push_back(":= " + else_label);
+                   a = 1;
             } 
             THEN {                  
                     std::string if_label = "if_true" + to_string(x);
-                    std::cout << ": " << if_label << endl;
+                    if_vec.push_back( ": " + if_label);
                     } 
                 Statement  {std::string endif_label = "endif" + to_string(x);
-                                                        std::cout << ":= " << endif_label << endl;}
+                                                        if_vec.push_back( ":= " + endif_label);}
                         Else_statement ENDIF SEMICOLON {
                                                         std::string endif_label = "endif" + to_string(x);
                                                         x++;
-                                                        std::cout << ": " << endif_label;
-                                                        std::cout << endl;} Statement1 
-            | WHILE Bool_Exp BEGINLOOP Statement ENDLOOP SEMICOLON {std::cout << endl;} Statement1
-            | DO BEGINLOOP Statement ENDLOOP WHILE Bool_Exp SEMICOLON {std::cout << endl;} Statement1
+                                                        if_vec.push_back(": " + endif_label);
+                                                        org_ifelse();
+                                                        a = 0;
+                                                        } Statement1 
+            | WHILE {   y++; 
+                        std::string loop_var = ": beginloop" + to_string(y);
+                        std::cout << loop_var << endl; 
+                        b = 1;
+                 } Bool_Exp BEGINLOOP { std::string loop_var = "loopbody" + to_string(y);
+                                        k--;
+                                        std::string temp = "temp_" + to_string(k);
+                                        k++;
+                                        std::cout << "?:= " << loop_var << ", " << temp << endl;
+                                        std::string loop_varE = ":= endloop" + to_string(y);
+                                        std::cout << loop_varE << endl;
+                                        std::cout << ": " << loop_var << endl;
+                        } Statement ENDLOOP SEMICOLON { std::string loop_var = ":= beginloop" + to_string(y);
+                                                        std::string loop_varE = ": endloop" + to_string(y);
+                                                        y--;
+                                                        std::cout << loop_var << endl;
+                                                        std::cout << loop_varE << endl;
+                                                        b = 0;
+                                                } Statement1
+            | DO BEGINLOOP { 
+                                y++; 
+                                std::string loop_var = ": beginloop" + to_string(y);
+                                std::cout << loop_var << endl; 
+                                b = 1;
+                        }
+                        Statement ENDLOOP WHILE Bool_Exp {
+                                k--;
+                                std::string temp = "temp_" + to_string(k);
+                                k++;
+                                std::string loop_var = "beginloop" + to_string(y);
+                                std::cout << "?:= " << loop_var << ", " << temp << endl;
+                                std::string loop_varE = ": endloop" + to_string(y);
+                                std::cout << loop_varE;
+                        } SEMICOLON {std::cout << endl;} Statement1
             | READ Var {std::cout << ".< " << $2;} SEMICOLON {std::cout << endl;} Statement1
             | WRITE Var {std::cout << ".> " << $2;} SEMICOLON {std::cout << endl;} Statement1
             | READ IDENT L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET {
@@ -239,8 +258,20 @@ Statement:  Var {operands.push_back($1); args.push_back($1); arr.push_back($1);
                         std::cout << ".> " << temp;
                         } 
                         SEMICOLON {std::cout << endl;} Statement1
-            | CONTINUE SEMICOLON {std::cout << endl;} Statement1
-            | BREAK SEMICOLON {std::cout << endl;} Statement1
+            | CONTINUE SEMICOLON { if(b == 0) {
+                                std::string msg = "Continue used outside of a loop";
+                                char a[msg.size()];
+                                strcpy(a, msg.c_str());
+                                yyerror(a);}
+                                std::cout << endl;} Statement1
+            | BREAK SEMICOLON {  if(b == 0) {
+                                std::string msg = "Break used outside of a loop";
+                                char a[msg.size()];
+                                strcpy(a, msg.c_str());
+                                yyerror(a);}
+                                std::string loop_varE = ":= endloop" + to_string(y);
+                                if_vec.push_back( loop_varE );
+                                } Statement1
             | RETURN Expression SEMICOLON {org_return_exp(); std::cout << endl;} Statement1
             | RETURN IDENT L_PAREN Term_Exp R_PAREN {                
                 std::string val = $2;
@@ -268,9 +299,10 @@ Statement1 : Statement
 ;
 Else_statement: ELSE {
                         std::string else_label = "else" + to_string(x);
-                    std::cout  << ": " << else_label << endl;
+                    if_vec.push_back( ": " + else_label);
+                    z = 1;
                         } Statement 
-                | 
+                | {z = 0; }
 ;
 Bool_Exp: Not Var Comp Var {
                         std::string temp = "temp_" + to_string(k);
@@ -429,7 +461,7 @@ int main(int argc, char **argv) {
 		strcpy(a, msg.c_str());
                 yyerror(a);
                 }
-   print_symbol_table();
+  // print_symbol_table();
    return 0;
 }
 
