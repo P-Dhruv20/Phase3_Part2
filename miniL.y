@@ -309,12 +309,18 @@ Bool_Exp: Not Var Comp Var {
                         k++;
                         std::cout << ". " << temp << endl;
                         std::cout << $3 << " " << temp << ", " << $2 << ", " << $4 << endl;
+                        if(c == 1){
+                                std::cout << "! " << temp << ", " << temp << endl;
+                        }
         }
         | Not Var Comp NUMBER {
                         std::string temp = "temp_" + to_string(k);
                         k++;
                         std::cout << ". " << temp << endl;
                         std::cout << $3 << " " << temp << ", " << $2 << ", " << $4 << endl;
+                        if(c == 1){
+                                std::cout << "! " << temp << ", " << temp << endl;
+                        }
         }
         | Not NUMBER Comp Var 
         {
@@ -322,6 +328,9 @@ Bool_Exp: Not Var Comp Var {
                         k++;
                         std::cout << ". " << temp << endl;
                         std::cout << $3 << " " << temp << ", " << $2 << ", " << $4 << endl;
+                        if(c == 1){
+                                std::cout << "! " << temp << ", " << temp << endl;
+                        }
         }
         | Not NUMBER Comp NUMBER
         {
@@ -329,10 +338,13 @@ Bool_Exp: Not Var Comp Var {
                         k++;
                         std::cout << ". " << temp << endl;
                         std::cout << $3 << " " << temp << ", " << $2 << ", " << $4 << endl;
+                        if(c == 1){
+                                std::cout << "! " << temp << ", " << temp << endl;
+                        }
         }
 ;
-Not: NOT
-    | 
+Not: NOT {c = 1;}
+    | {c = 0;}
 ;
 Comp:   EQ {    char a[1];
                 strcpy(a, "=");

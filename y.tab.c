@@ -272,11 +272,11 @@ static const unsigned short int yyrline[] =
      209,   213,   221,   209,   228,   234,   242,   228,   243,   243,
      243,   244,   244,   244,   245,   252,   245,   253,   260,   253,
      261,   261,   267,   267,   275,   275,   276,   285,   276,   295,
-     295,   297,   298,   300,   300,   305,   307,   313,   319,   326,
-     334,   335,   337,   340,   343,   346,   349,   352,   356,   359,
-     358,   363,   362,   366,   369,   373,   372,   377,   376,   381,
-     380,   384,   386,   387,   388,   389,   389,   389,   390,   401,
-     402,   402,   403,   405,   426
+     295,   297,   298,   300,   300,   305,   307,   316,   325,   335,
+     346,   347,   349,   352,   355,   358,   361,   364,   368,   371,
+     370,   375,   374,   378,   381,   385,   384,   389,   388,   393,
+     392,   396,   398,   399,   400,   401,   401,   401,   402,   413,
+     414,   414,   415,   417,   438
 };
 #endif
 
@@ -1489,170 +1489,194 @@ yyuserAction (yyRuleNum yyn, size_t yyrhslen, yyGLRStackItem* yyvsp,
                         k++;
                         std::cout << ". " << temp << endl;
                         std::cout << (((yyGLRStackItem const *)yyvsp)[YYFILL (-1)].yystate.yysemantics.yysval.stval) << " " << temp << ", " << (((yyGLRStackItem const *)yyvsp)[YYFILL (-2)].yystate.yysemantics.yysval.stval) << ", " << (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval) << endl;
+                        if(c == 1){
+                                std::cout << "! " << temp << ", " << temp << endl;
+                        }
         }
-#line 1494 "y.tab.c" /* glr.c:816  */
+#line 1497 "y.tab.c" /* glr.c:816  */
     break;
 
   case 67:
-#line 313 "miniL.y" /* glr.c:816  */
+#line 316 "miniL.y" /* glr.c:816  */
     {
                         std::string temp = "temp_" + to_string(k);
                         k++;
                         std::cout << ". " << temp << endl;
                         std::cout << (((yyGLRStackItem const *)yyvsp)[YYFILL (-1)].yystate.yysemantics.yysval.stval) << " " << temp << ", " << (((yyGLRStackItem const *)yyvsp)[YYFILL (-2)].yystate.yysemantics.yysval.stval) << ", " << (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval) << endl;
+                        if(c == 1){
+                                std::cout << "! " << temp << ", " << temp << endl;
+                        }
         }
-#line 1505 "y.tab.c" /* glr.c:816  */
+#line 1511 "y.tab.c" /* glr.c:816  */
     break;
 
   case 68:
-#line 320 "miniL.y" /* glr.c:816  */
+#line 326 "miniL.y" /* glr.c:816  */
     {
                         std::string temp = "temp_" + to_string(k);
                         k++;
                         std::cout << ". " << temp << endl;
                         std::cout << (((yyGLRStackItem const *)yyvsp)[YYFILL (-1)].yystate.yysemantics.yysval.stval) << " " << temp << ", " << (((yyGLRStackItem const *)yyvsp)[YYFILL (-2)].yystate.yysemantics.yysval.stval) << ", " << (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval) << endl;
+                        if(c == 1){
+                                std::cout << "! " << temp << ", " << temp << endl;
+                        }
         }
-#line 1516 "y.tab.c" /* glr.c:816  */
+#line 1525 "y.tab.c" /* glr.c:816  */
     break;
 
   case 69:
-#line 327 "miniL.y" /* glr.c:816  */
+#line 336 "miniL.y" /* glr.c:816  */
     {
                         std::string temp = "temp_" + to_string(k);
                         k++;
                         std::cout << ". " << temp << endl;
                         std::cout << (((yyGLRStackItem const *)yyvsp)[YYFILL (-1)].yystate.yysemantics.yysval.stval) << " " << temp << ", " << (((yyGLRStackItem const *)yyvsp)[YYFILL (-2)].yystate.yysemantics.yysval.stval) << ", " << (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval) << endl;
+                        if(c == 1){
+                                std::cout << "! " << temp << ", " << temp << endl;
+                        }
         }
-#line 1527 "y.tab.c" /* glr.c:816  */
+#line 1539 "y.tab.c" /* glr.c:816  */
     break;
 
-  case 72:
-#line 337 "miniL.y" /* glr.c:816  */
-    {    char a[1];
-                strcpy(a, "=");
-                ((*yyvalp).stval) = a;}
-#line 1535 "y.tab.c" /* glr.c:816  */
+  case 70:
+#line 346 "miniL.y" /* glr.c:816  */
+    {c = 1;}
+#line 1545 "y.tab.c" /* glr.c:816  */
     break;
 
-  case 73:
-#line 340 "miniL.y" /* glr.c:816  */
-    {  char a[2];
-                strcpy(a, "!=");
-                ((*yyvalp).stval) = a;}
-#line 1543 "y.tab.c" /* glr.c:816  */
-    break;
-
-  case 74:
-#line 343 "miniL.y" /* glr.c:816  */
-    {    char a[1];
-                strcpy(a, "<");
-                ((*yyvalp).stval) = a;}
+  case 71:
+#line 347 "miniL.y" /* glr.c:816  */
+    {c = 0;}
 #line 1551 "y.tab.c" /* glr.c:816  */
     break;
 
-  case 75:
-#line 346 "miniL.y" /* glr.c:816  */
+  case 72:
+#line 349 "miniL.y" /* glr.c:816  */
     {    char a[1];
-                strcpy(a, ">");
+                strcpy(a, "=");
                 ((*yyvalp).stval) = a;}
 #line 1559 "y.tab.c" /* glr.c:816  */
     break;
 
-  case 76:
-#line 349 "miniL.y" /* glr.c:816  */
-    {    char a[2];
-                strcpy(a, "<=");
+  case 73:
+#line 352 "miniL.y" /* glr.c:816  */
+    {  char a[2];
+                strcpy(a, "!=");
                 ((*yyvalp).stval) = a;}
 #line 1567 "y.tab.c" /* glr.c:816  */
     break;
 
-  case 77:
-#line 352 "miniL.y" /* glr.c:816  */
-    {    char a[2];
-                strcpy(a, ">=");
+  case 74:
+#line 355 "miniL.y" /* glr.c:816  */
+    {    char a[1];
+                strcpy(a, "<");
                 ((*yyvalp).stval) = a;}
 #line 1575 "y.tab.c" /* glr.c:816  */
     break;
 
+  case 75:
+#line 358 "miniL.y" /* glr.c:816  */
+    {    char a[1];
+                strcpy(a, ">");
+                ((*yyvalp).stval) = a;}
+#line 1583 "y.tab.c" /* glr.c:816  */
+    break;
+
+  case 76:
+#line 361 "miniL.y" /* glr.c:816  */
+    {    char a[2];
+                strcpy(a, "<=");
+                ((*yyvalp).stval) = a;}
+#line 1591 "y.tab.c" /* glr.c:816  */
+    break;
+
+  case 77:
+#line 364 "miniL.y" /* glr.c:816  */
+    {    char a[2];
+                strcpy(a, ">=");
+                ((*yyvalp).stval) = a;}
+#line 1599 "y.tab.c" /* glr.c:816  */
+    break;
+
   case 79:
-#line 359 "miniL.y" /* glr.c:816  */
+#line 371 "miniL.y" /* glr.c:816  */
     { operands.push_back("+"); args.push_back("+"); arr.push_back("+");
         }
-#line 1582 "y.tab.c" /* glr.c:816  */
+#line 1606 "y.tab.c" /* glr.c:816  */
     break;
 
   case 81:
-#line 363 "miniL.y" /* glr.c:816  */
+#line 375 "miniL.y" /* glr.c:816  */
     { operands.push_back("-"); args.push_back("-"); arr.push_back("-");
         }
-#line 1589 "y.tab.c" /* glr.c:816  */
+#line 1613 "y.tab.c" /* glr.c:816  */
     break;
 
   case 83:
-#line 366 "miniL.y" /* glr.c:816  */
+#line 378 "miniL.y" /* glr.c:816  */
     {}
-#line 1595 "y.tab.c" /* glr.c:816  */
+#line 1619 "y.tab.c" /* glr.c:816  */
     break;
 
   case 85:
-#line 373 "miniL.y" /* glr.c:816  */
+#line 385 "miniL.y" /* glr.c:816  */
     { operands.push_back("*"); args.push_back("*"); arr.push_back("*");
         }
-#line 1602 "y.tab.c" /* glr.c:816  */
+#line 1626 "y.tab.c" /* glr.c:816  */
     break;
 
   case 87:
-#line 377 "miniL.y" /* glr.c:816  */
+#line 389 "miniL.y" /* glr.c:816  */
     { operands.push_back("/"); args.push_back("/"); arr.push_back("/");
         }
-#line 1609 "y.tab.c" /* glr.c:816  */
+#line 1633 "y.tab.c" /* glr.c:816  */
     break;
 
   case 89:
-#line 381 "miniL.y" /* glr.c:816  */
+#line 393 "miniL.y" /* glr.c:816  */
     { operands.push_back("%"); args.push_back("%"); arr.push_back("%");
         }
-#line 1616 "y.tab.c" /* glr.c:816  */
-    break;
-
-  case 91:
-#line 384 "miniL.y" /* glr.c:816  */
-    {}
-#line 1622 "y.tab.c" /* glr.c:816  */
-    break;
-
-  case 92:
-#line 386 "miniL.y" /* glr.c:816  */
-    {operands.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval)); args.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval)); arr.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval));}
-#line 1628 "y.tab.c" /* glr.c:816  */
-    break;
-
-  case 93:
-#line 387 "miniL.y" /* glr.c:816  */
-    {arr.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval));}
-#line 1634 "y.tab.c" /* glr.c:816  */
-    break;
-
-  case 94:
-#line 388 "miniL.y" /* glr.c:816  */
-    {operands.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval)); args.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval)); ((*yyvalp).stval) = (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval); arr.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval));}
 #line 1640 "y.tab.c" /* glr.c:816  */
     break;
 
-  case 95:
-#line 389 "miniL.y" /* glr.c:816  */
-    {operands.push_back("("); arr.push_back("(");}
+  case 91:
+#line 396 "miniL.y" /* glr.c:816  */
+    {}
 #line 1646 "y.tab.c" /* glr.c:816  */
     break;
 
-  case 96:
-#line 389 "miniL.y" /* glr.c:816  */
-    {organize_into_nodes(); }
+  case 92:
+#line 398 "miniL.y" /* glr.c:816  */
+    {operands.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval)); args.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval)); arr.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval));}
 #line 1652 "y.tab.c" /* glr.c:816  */
     break;
 
+  case 93:
+#line 399 "miniL.y" /* glr.c:816  */
+    {arr.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval));}
+#line 1658 "y.tab.c" /* glr.c:816  */
+    break;
+
+  case 94:
+#line 400 "miniL.y" /* glr.c:816  */
+    {operands.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval)); args.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval)); ((*yyvalp).stval) = (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval); arr.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval));}
+#line 1664 "y.tab.c" /* glr.c:816  */
+    break;
+
+  case 95:
+#line 401 "miniL.y" /* glr.c:816  */
+    {operands.push_back("("); arr.push_back("(");}
+#line 1670 "y.tab.c" /* glr.c:816  */
+    break;
+
+  case 96:
+#line 401 "miniL.y" /* glr.c:816  */
+    {organize_into_nodes(); }
+#line 1676 "y.tab.c" /* glr.c:816  */
+    break;
+
   case 98:
-#line 390 "miniL.y" /* glr.c:816  */
+#line 402 "miniL.y" /* glr.c:816  */
     {                
                 std::string val = (((yyGLRStackItem const *)yyvsp)[YYFILL (-3)].yystate.yysemantics.yysval.stval);
                 if(!findFunction(val)) {
@@ -1663,23 +1687,23 @@ yyuserAction (yyRuleNum yyn, size_t yyrhslen, yyGLRStackItem* yyvsp,
                 }
                 args.push_back((((yyGLRStackItem const *)yyvsp)[YYFILL (-3)].yystate.yysemantics.yysval.stval)); org_args();
         }
-#line 1667 "y.tab.c" /* glr.c:816  */
+#line 1691 "y.tab.c" /* glr.c:816  */
     break;
 
   case 100:
-#line 402 "miniL.y" /* glr.c:816  */
+#line 414 "miniL.y" /* glr.c:816  */
     {args.push_back(",");}
-#line 1673 "y.tab.c" /* glr.c:816  */
+#line 1697 "y.tab.c" /* glr.c:816  */
     break;
 
   case 102:
-#line 403 "miniL.y" /* glr.c:816  */
+#line 415 "miniL.y" /* glr.c:816  */
     {}
-#line 1679 "y.tab.c" /* glr.c:816  */
+#line 1703 "y.tab.c" /* glr.c:816  */
     break;
 
   case 103:
-#line 405 "miniL.y" /* glr.c:816  */
+#line 417 "miniL.y" /* glr.c:816  */
     {  
         std::string val = (((yyGLRStackItem const *)yyvsp)[YYFILL (0)].yystate.yysemantics.yysval.stval);
         if(find(val)) {
@@ -1700,11 +1724,11 @@ yyuserAction (yyRuleNum yyn, size_t yyrhslen, yyGLRStackItem* yyvsp,
                 yyerror(a);
                 }
         }
-#line 1704 "y.tab.c" /* glr.c:816  */
+#line 1728 "y.tab.c" /* glr.c:816  */
     break;
 
   case 104:
-#line 426 "miniL.y" /* glr.c:816  */
+#line 438 "miniL.y" /* glr.c:816  */
     {        
                 std::string val = (((yyGLRStackItem const *)yyvsp)[YYFILL (-3)].yystate.yysemantics.yysval.stval);
                 if(find(val)) {
@@ -1727,11 +1751,11 @@ yyuserAction (yyRuleNum yyn, size_t yyrhslen, yyGLRStackItem* yyvsp,
 
 
                 }
-#line 1731 "y.tab.c" /* glr.c:816  */
+#line 1755 "y.tab.c" /* glr.c:816  */
     break;
 
 
-#line 1735 "y.tab.c" /* glr.c:816  */
+#line 1759 "y.tab.c" /* glr.c:816  */
       default: break;
     }
 
@@ -3501,7 +3525,7 @@ yypdumpstack (yyGLRStack* yystackp)
 
 
 
-#line 452 "miniL.y" /* glr.c:2584  */
+#line 464 "miniL.y" /* glr.c:2584  */
  
 
 int main(int argc, char **argv) {

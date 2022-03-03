@@ -45,6 +45,7 @@ int y = -1;
 int z = 0;
 int a = 0;
 int b = 0;
+int c = 0;
 std::vector<std::string> if_vec;
 
 void org_ifelse(){
